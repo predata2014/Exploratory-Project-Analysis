@@ -1,0 +1,15 @@
+setwd("coursera")
+df<-read.csv("household_power_consumption.txt",sep=";")
+#reading the data
+df2<-df[as.character(df$Date) %in% c("1/2/2007", "2/2/2007"),]
+#reading data of two dates and subsetting dataframe
+df2$dateTime = paste(df2$Date, df2$Time)
+#combining date and time column
+df2$dateTime <- strptime(df2$dateTime, "%d/%m/%Y %H:%M:%S")
+#converting into date and time class
+attach(df2)
+png("plot2.png", width=480, height=480, units="px")
+#plotting data required
+
+plot(dateTime, as.numeric(as.character(Global_active_power)), type="l", xlab="", ylab="Global Active Power (kilowatts)")
+dev.off()
