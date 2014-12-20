@@ -1,0 +1,17 @@
+NEI <- readRDS("exploratory/project2/summarySCC_PM25.rds")
+SCC <- readRDS("exploratory/project2/Source_Classification_Code.rds")
+
+NEI$year<-as.factor(NEI$year)
+##NEI2<-NEI[as.character(NEI$year) %in% c("1999", "2002","2005","2008"),]
+##attach(NEI)
+##by1=c("1999", "2002","2005","2008")
+NEI2<-NEI[as.character(NEI$year) %in% c("1999"),]
+emission99<-sum(NEI2$Emissions)
+sampledf<-aggregate(x = NEI$Emissions, by = list(Category=NEI$year), FUN = sum)
+sampledf$x <- round(sampledf[,2]/1000,2)
+#3NEI$year <- factor(NEI$year, levels=c('1999', '2002', '2005', '2008'))
+png("plot5.png", width=480, height=480, units="px")
+#plotting data required
+##hist(sampledf, col="red", main="Pollution Chart", xlab="Years",ylab="Emission In Ton")
+barplot(sampledf$x,names.arg=sampledf$Category,main=" Total PM2.5 emission from all sources Vs Years",xlab="Year",ylab="Emmisions in KiloTons ",col=)
+dev.off()
